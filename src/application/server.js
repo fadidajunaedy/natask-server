@@ -16,8 +16,9 @@ initSocket(server);
 
 web.use(
   cors({
-    origin: ["http://localhost:5173"],
-    methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
+    origin: ["http://localhost:5173"], // Izinkan permintaan dari origin ini
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE"], // Izinkan metode HTTP ini
+    credentials: true, // Izinkan pengiriman kredensial (jika diperlukan)
   })
 );
 web.use(express.json());
