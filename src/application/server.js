@@ -12,23 +12,33 @@ const errorMiddleware = require("../middlewares/errorMiddleware.js");
 
 const web = express();
 web.use(express.json());
-web.use(
-  cors({
-    setHeader: {
-      authorization: "Bearer ",
-    },
-    origin: ["http://localhost:5173"], // Izinkan permintaan dari origin ini
-    methods: ["GET", "POST", "PUT", "PATCH", "DELETE"], // Izinkan metode HTTP ini,
-    credentials: true,
-  })
-);
 web.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "http://localhost:5173"); // Izinkan origin tertentu
-  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, PATCH, DELETE"); // Izinkan metode HTTP
-  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization"); // Izinkan header tertentu
-  res.header("Access-Control-Allow-Credentials", "true"); // Izinkan kredensial
+  // Izinkan origin tertentu (http://localhost:5173)
+  res.header("Access-Control-Allow-Origin", "http://localhost:5173");
+
+  // Izinkan metode HTTP tertentu
+  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, PATCH, DELETE");
+
+  // Izinkan header tertentu (misalnya, Authorization)
+  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
+
+  // Izinkan pengiriman kredensial (cookies, auth headers)
+  res.header("Access-Control-Allow-Credentials", "true");
+
+  // Tangani preflight request (OPTIONS)
+  if (req.method === "OPTIONS") {
+    return res.sendStatus(204); // No Content
+  }
+
   next();
 });
+web.use(
+  cors({
+    origin: ["http://localhost:5173"], // Izinkan permintaan dari origin ini
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE"], //
+  })
+);
+
 web.use("/files", express.static(path.join(__dirname, "../../files")));
 web.use(publicRouter);
 web.use(privateRouter);
