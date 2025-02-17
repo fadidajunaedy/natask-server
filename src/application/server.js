@@ -11,6 +11,9 @@ const privateRouter = require("../routes/api.js");
 const errorMiddleware = require("../middlewares/errorMiddleware.js");
 
 const web = express();
+const server = http.createServer(web);
+initSocket(server);
+
 web.use(express.json());
 web.use(
   cors({
@@ -23,8 +26,5 @@ web.use("/files", express.static(path.join(__dirname, "../../files")));
 web.use(publicRouter);
 web.use(privateRouter);
 web.use(errorMiddleware);
-
-const server = http.createServer(web);
-initSocket(server);
 
 module.exports = server;
