@@ -17,7 +17,7 @@ initSocket(server);
 web.use(express.json());
 web.use(
   cors({
-    origin: ["http://localhost:5173"], // Izinkan permintaan dari origin ini
+    origin: ["http://localhost:5173", "https://natask.vercel.app"], // Izinkan permintaan dari origin ini
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"], //
   })
 );
