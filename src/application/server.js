@@ -18,9 +18,15 @@ web.use(
   cors({
     origin: ["http://localhost:5173"], // Izinkan permintaan dari origin ini
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE"], // Izinkan metode HTTP ini
-    credentials: true, // Izinkan pengiriman kredensial (jika diperlukan)
   })
 );
+web.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "http://localhost:5173"); // Izinkan origin tertentu
+  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, PATCH, DELETE"); // Izinkan metode HTTP
+  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization"); // Izinkan header tertentu
+  res.header("Access-Control-Allow-Credentials", "true"); // Izinkan kredensial
+  next();
+});
 web.use(express.json());
 web.use("/files", express.static(path.join(__dirname, "../../files")));
 web.use(publicRouter);
