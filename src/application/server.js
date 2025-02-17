@@ -14,8 +14,12 @@ const web = express();
 web.use(express.json());
 web.use(
   cors({
+    setHeader: {
+      authorization: "Bearer ",
+    },
     origin: ["http://localhost:5173"], // Izinkan permintaan dari origin ini
-    methods: ["GET", "POST", "PUT", "PATCH", "DELETE"], // Izinkan metode HTTP ini
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE"], // Izinkan metode HTTP ini,
+    credentials: true,
   })
 );
 web.use((req, res, next) => {
