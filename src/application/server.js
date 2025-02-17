@@ -14,7 +14,11 @@ const web = express();
 const server = http.createServer(web);
 initSocket(server);
 
-web.use(cors());
+web.use(
+  cors({
+    origin: ["http://localhost:3000"],
+  })
+);
 web.use(express.json());
 web.use("/files", express.static(path.join(__dirname, "../../files")));
 web.use(publicRouter);
