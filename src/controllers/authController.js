@@ -33,8 +33,6 @@ const login = async (req, res, next) => {
 const get = async (req, res, next) => {
   try {
     const user = req.user;
-    user.photo = `${process.env.SERVER_URL}/files/user/photo/${user.photo}`;
-
     res.status(200).json({
       success: true,
       message: "Get User Success",
