@@ -1,6 +1,6 @@
 const { getSocket } = require("./config/socket.js");
 const { clientSubscriptions } = require("./services/subtaskService.js");
-const web = require("./application/server.js");
+const server = require("./application/server.js");
 const socket = getSocket();
 
 socket.on("connection", (ws, req) => {
@@ -27,4 +27,4 @@ socket.on("connection", (ws, req) => {
   });
 });
 
-web.listen(3000, () => console.log("Server start in port 3000"));
+server.listen(3000, () => console.log("Server start in port 3000"));
