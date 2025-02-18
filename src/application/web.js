@@ -1,18 +1,14 @@
 require("dotenv").config();
 require("../config/dbConnect.js");
 
-const http = require("http");
-const cors = require("cors");
 const express = require("express");
 const path = require("path");
+const cors = require("cors");
 const publicRouter = require("../routes/publicApi.js");
 const privateRouter = require("../routes/api.js");
 const errorMiddleware = require("../middlewares/errorMiddleware.js");
-const { initSocket } = require("../config/socket.js");
 
 const web = express();
-const server = http.createServer(web);
-initSocket(server);
 
 web.use(express.json());
 web.use(express.urlencoded({ extended: true }));
@@ -30,4 +26,4 @@ web.use(publicRouter);
 web.use(privateRouter);
 web.use(errorMiddleware);
 
-module.exports = server;
+module.exports = web;

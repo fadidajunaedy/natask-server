@@ -1,10 +1,6 @@
-const WebSocket = require("ws");
 const Task = require("../models/taskModel.js");
 const Subtask = require("../models/subtaskModel.js");
 const ResponseError = require("../error/responseError.js");
-
-const clientSubscriptions = [];
-const { getSocket } = require("../config/socket.js");
 
 const create = async (request) => {
   const task = await Task.findById(request.taskId);
@@ -19,22 +15,6 @@ const update = async (_id, request) => {
   if (!subtask) throw new ResponseError(404, "Subtask not found");
 
   await subtask.updateOne(request);
-  const updatedSubtask = await Subtask.findById(_id);
-
-  clientSubscriptions.forEach((subscription) => {
-    if (
-      subscription._id === _id &&
-      subscription.client.readyState === WebSocket.OPEN
-    ) {
-      subscription.client.send(
-        JSON.stringify({
-          event: "subtaskUpdated",
-          payload: updatedSubtask,
-        })
-      );
-    }
-  });
-
   return;
 };
 
@@ -64,5 +44,4 @@ module.exports = {
   getAll,
   get,
   remove,
-  clientSubscriptions,
 };
