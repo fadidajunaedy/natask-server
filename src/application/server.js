@@ -40,4 +40,4 @@ web.use(publicRouter);
 web.use(privateRouter);
 web.use(errorMiddleware);
 
-module.exports = server;
+module.exports = web;

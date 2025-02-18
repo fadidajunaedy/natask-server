@@ -1,4 +1,4 @@
-const server = require("./application/server.js");
+const web = require("./application/server.js");
 
 const { getSocket } = require("./config/socket.js");
 const socket = getSocket();
@@ -31,4 +31,4 @@ socket.on("connection", (ws, req) => {
   });
 });
 
-server.listen(3000, () => console.log("Server start in port 3000"));
+web.listen(3000, () => console.log("Server start in port 3000"));
