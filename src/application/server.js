@@ -14,6 +14,8 @@ const web = express();
 const server = https.createServer(web);
 initSocket(server);
 
+web.use(express.json());
+web.use(express.urlencoded({ extended: true }));
 web.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "https://natask.vercel.app");
   res.header(
@@ -28,7 +30,6 @@ web.use((req, res, next) => {
 
   next();
 });
-web.use(express.json());
 web.use("/files", express.static(path.join(__dirname, "../../files")));
 web.use(publicRouter);
 web.use(privateRouter);
