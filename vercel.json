@@ -2,7 +2,7 @@
   "version": 2,
   "builds": [
     {
-      "src": "ssrc/indexjs",
+      "src": "src/indexjs",
       "use": "@vercel/node"
     }
   ],
