@@ -6,10 +6,10 @@ const create = async (req, res, next) => {
   try {
     const user = req.user;
     const request = req.body;
-    if (req.files && req.files.photo) {
-      request.photo = req.files.photo[0].filename;
-    }
+
+    if (req.file) request.photo = req.file.path;
     const result = await employeeService.create(user, request);
+
     res.status(200).json({
       success: true,
       message: "Create Employee Success",
@@ -25,10 +25,10 @@ const update = async (req, res, next) => {
     const user = req.user;
     const _id = req.params._id;
     const request = req.body;
-    if (req.files && req.files.photo) {
-      request.photo = req.files.photo[0].filename;
-    }
+
+    if (req.file) request.photo = req.file.path;
     await employeeService.update(user, _id, request);
+
     res.status(200).json({
       success: true,
       message: "Update Employee Success",

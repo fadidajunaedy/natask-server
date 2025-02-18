@@ -2,7 +2,7 @@ require("dotenv").config();
 require("../config/dbConnect.js");
 
 const { initSocket } = require("../config/socket.js");
-const http = require("http");
+const https = require("https");
 const cors = require("cors");
 const express = require("express");
 const path = require("path");
@@ -11,7 +11,13 @@ const privateRouter = require("../routes/api.js");
 const errorMiddleware = require("../middlewares/errorMiddleware.js");
 
 const web = express();
-const server = http.createServer(web);
+const server = https.createServer(
+  {
+    key: Buffer.from(process.env.SSL_KEY, "base64").toString("ascii"),
+    cert: Buffer.from(process.env.SSL_CERT, "base64").toString("ascii"),
+  },
+  web
+);
 initSocket(server);
 
 web.use(

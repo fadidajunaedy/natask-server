@@ -1,4 +1,5 @@
 const express = require("express");
+const upload = require("../utils/uploadFile.js");
 const authMiddleware = require("../middlewares/authMiddleware.js");
 
 const privateRouter = new express.Router();
@@ -13,12 +14,12 @@ const employeeController = require("../controllers/employeeController.js");
 privateRouter.get("/api/employees", employeeController.getAll);
 privateRouter.post(
   "/api/employees",
-  employeeController.upload,
+  upload.single("photo"),
   employeeController.create
 );
 privateRouter.patch(
   "/api/employees/:_id",
-  employeeController.upload,
+  upload.single("photo"),
   employeeController.update
 );
 privateRouter.delete("/api/employees/:_id", employeeController.remove);

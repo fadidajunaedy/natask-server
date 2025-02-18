@@ -1,5 +1,6 @@
 const fs = require("fs");
 const mongoose = require("mongoose");
+const cloudinary = require("cloudinary").v2;
 const User = require("../models/userModel.js");
 const Employee = require("../models/employeeModel.js");
 const ResponseError = require("../error/responseError.js");
@@ -33,10 +34,8 @@ const update = async (user, _id, request) => {
   }
 
   if (request.photo && employee.photo && request.photo !== employee.photo) {
-    fs.unlink(`files/employee/photo/${employee.photo}`, (err) => {
-      if (err) console.error("Error deleting previous file:", err);
-      console.log("Previous file deleted, insert new file");
-    });
+    const publicId = employee.photo.split("/").pop().split(".")[0];
+    await cloudinary.uploader.destroy(`photo/${publicId}`);
   }
 
   await employee.updateOne(request);

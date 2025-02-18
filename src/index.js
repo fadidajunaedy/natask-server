@@ -1,16 +1,12 @@
-const web = require("./application/server.js");
-
 const { getSocket } = require("./config/socket.js");
-const socket = getSocket();
-
 const { clientSubscriptions } = require("./services/subtaskService.js");
+const web = require("./application/server.js");
+const socket = getSocket();
 
 socket.on("connection", (ws, req) => {
   ws.send(JSON.stringify({ success: true, message: "WS Connect Success" }));
-
   ws.on("message", (message) => {
     const { event, payload } = JSON.parse(message);
-
     if (event === "subscribe") {
       if (Array.isArray(payload)) {
         payload.forEach((_id) => {
