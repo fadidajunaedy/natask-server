@@ -10,18 +10,4 @@ publicRouter.patch(
   authController.resetPassword
 );
 
-const employeeController = require("../controllers/employeeController.js");
-publicRouter.get("/api/employees/:_id", employeeController.get);
-// publicRouter.get('/api/employees', employeeController.getAll)
-
-const taskController = require("../controllers/taskController.js");
-publicRouter.get("/api/tasks/:_id", taskController.get);
-// publicRouter.get('/api/tasks', taskController.getAll)
-publicRouter.patch("/api/tasks/:_id", taskController.update);
-
-const subtaskController = require("../controllers/subtaskController.js");
-publicRouter.get("/api/subtasks/:_id", subtaskController.get);
-publicRouter.get("/api/subtasks", subtaskController.getAll);
-publicRouter.patch("/api/subtasks/:_id", subtaskController.update);
-
 module.exports = publicRouter;
