@@ -14,6 +14,9 @@ web.use(express.json());
 web.use(express.urlencoded({ extended: true }));
 web.use(
   cors({
+    setHeader: {
+      authorization: "Bearer ",
+    },
     origin: ["http://localhost:5173", "https://natask.vercel.app"],
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
     credentials: true,
