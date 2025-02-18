@@ -7,6 +7,7 @@
     "start": "node src/index.js",
     "dev": "nodemon src/index.js",
     "build": "echo 'No build step required'",
+    "vercel-build": "echo 'No build step required'",
     "test": "jest --detectOpenHandles"
   },
   "author": "Fadida Junaedy",
