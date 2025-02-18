@@ -17,7 +17,7 @@ web.use(
     setHeader: {
       authorization: "Bearer ",
     },
-    origin: ["http://localhost:5173", "https://natask.vercel.app"],
+    origin: "*",
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
     credentials: true,
     allowedHeaders: ["Content-Type, Authorization, X-Requested-With"],
