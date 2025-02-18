@@ -14,17 +14,28 @@ const web = express();
 const server = http.createServer(web);
 initSocket(server);
 
-web.use(express.json());
 web.use(
   cors({
-    origin: ["http://localhost:5173", "https://natask.vercel.app"], // Izinkan permintaan dari origin ini
-    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"], //
+    origin: ["http://localhost:5173", "https://natask.vercel.app"],
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: true,
   })
 );
-web.options("*", cors())
 
+web.options("*", (req, res) => {
+  res.header("Access-Control-Allow-Origin", req.headers.origin || "*");
+  res.header(
+    "Access-Control-Allow-Methods",
+    "GET, POST, PUT, PATCH, DELETE, OPTIONS"
+  );
+  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  res.sendStatus(200);
+});
+
+web.use(express.json());
 web.use("/files", express.static(path.join(__dirname, "../../files")));
+
 web.use(publicRouter);
 web.use(privateRouter);
 web.use(errorMiddleware);
