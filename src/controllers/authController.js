@@ -74,9 +74,7 @@ const update = async (req, res, next) => {
   try {
     const user = req.user;
     const request = req.body;
-    if (req.files && req.files.photo) {
-      request.photo = req.files.photo[0].filename;
-    }
+    if (req.file) request.photo = req.file.path;
     await authService.update(user, request);
     res.status(200).json({
       success: true,

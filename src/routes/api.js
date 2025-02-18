@@ -7,7 +7,11 @@ privateRouter.use(authMiddleware);
 
 const authController = require("../controllers/authController.js");
 privateRouter.get("/api/users", authController.get);
-privateRouter.patch("/api/users", upload.single("photo"),, authController.update);
+privateRouter.patch(
+  "/api/users",
+  upload.single("photo"),
+  authController.update
+);
 privateRouter.post("/api/users/change-password", authController.changePassword);
 
 const employeeController = require("../controllers/employeeController.js");
@@ -35,9 +39,9 @@ privateRouter.delete("/api/tasks/:_id", taskController.remove);
 const subtaskController = require("../controllers/subtaskController.js");
 privateRouter.post("/api/subtasks", subtaskController.create);
 privateRouter.delete("/api/subtasks/:_id", subtaskController.remove);
-publicRouter.get("/api/subtasks/:_id", subtaskController.get);
-publicRouter.get("/api/subtasks", subtaskController.getAll);
-publicRouter.patch("/api/subtasks/:_id", subtaskController.update);
+privateRouter.get("/api/subtasks/:_id", subtaskController.get);
+privateRouter.get("/api/subtasks", subtaskController.getAll);
+privateRouter.patch("/api/subtasks/:_id", subtaskController.update);
 
 const dashboardController = require("../controllers/dashboardController.js");
 privateRouter.get("/api/dashboards", dashboardController.get);

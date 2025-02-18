@@ -1,5 +1,5 @@
-const fs = require("fs");
 const jwt = require("jsonwebtoken");
+const cloudinary = require("cloudinary").v2;
 const User = require("../models/userModel.js");
 const ResponseError = require("../error/responseError.js");
 const generateEmail = require("../utils/generateEmail.js");
@@ -79,10 +79,8 @@ const resetPassword = async (token, request) => {
 
 const update = async (user, request) => {
   if (request.photo && user.photo && request.photo !== user.photo) {
-    fs.unlink(`files/user/photo/${user.photo}`, (err) => {
-      if (err) console.error("Error deleting previous file:", err);
-      console.log("Previous file deleted, insert new file");
-    });
+    const publicId = user.photo.split("/").pop().split(".")[0];
+    await cloudinary.uploader.destroy(`photo/${publicId}`);
   }
 
   await User.updateOne({ _id: user._id }, request);
