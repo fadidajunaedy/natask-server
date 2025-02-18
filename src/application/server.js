@@ -19,8 +19,10 @@ web.use(
   cors({
     origin: ["http://localhost:5173", "https://natask.vercel.app"], // Izinkan permintaan dari origin ini
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"], //
+    allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
+web.options("*", cors())
 
 web.use("/files", express.static(path.join(__dirname, "../../files")));
 web.use(publicRouter);
