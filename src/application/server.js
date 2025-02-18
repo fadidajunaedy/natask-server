@@ -16,21 +16,15 @@ initSocket(server);
 
 web.use(express.json());
 web.use(express.urlencoded({ extended: true }));
-web.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "https://natask.vercel.app");
-  res.header(
-    "Access-Control-Allow-Methods",
-    "GET, POST, PUT, PATCH, DELETE, OPTIONS"
-  );
-  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
-
-  if (req.method === "OPTIONS") {
-    return res.sendStatus(200);
-  }
-
-  next();
-});
+web.use(
+  cors({
+    origin: ["http://localhost:3000", "https://natask.vercel.app"],
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
 web.use("/files", express.static(path.join(__dirname, "../../files")));
+
 web.use(publicRouter);
 web.use(privateRouter);
 web.use(errorMiddleware);
