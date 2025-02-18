@@ -1,7 +1,7 @@
 require("dotenv").config();
 require("../config/dbConnect.js");
 
-const https = require("https");
+const http = require("http");
 const cors = require("cors");
 const express = require("express");
 const path = require("path");
@@ -11,7 +11,7 @@ const errorMiddleware = require("../middlewares/errorMiddleware.js");
 const { initSocket } = require("../config/socket.js");
 
 const web = express();
-const server = https.createServer(web);
+const server = http.createServer(web);
 initSocket(server);
 
 web.use(express.json());
@@ -20,7 +20,8 @@ web.use(
   cors({
     origin: ["http://localhost:5173", "https://natask.vercel.app"],
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: true,
+    allowedHeaders: ["Content-Type, Authorization, X-Requested-With"],
   })
 );
 web.use("/files", express.static(path.join(__dirname, "../../files")));
