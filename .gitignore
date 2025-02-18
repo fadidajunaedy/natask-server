@@ -3,3 +3,6 @@ logs
 .env
 .vercel
 ssl
+*.pem
+key.pem
+cert.pem

@@ -11,13 +11,7 @@ const privateRouter = require("../routes/api.js");
 const errorMiddleware = require("../middlewares/errorMiddleware.js");
 
 const web = express();
-const server = https.createServer(
-  {
-    key: Buffer.from(process.env.SSL_KEY, "base64").toString("ascii"),
-    cert: Buffer.from(process.env.SSL_CERT, "base64").toString("ascii"),
-  },
-  web
-);
+const server = https.createServer(web);
 initSocket(server);
 
 web.use(
