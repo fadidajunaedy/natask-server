@@ -59,8 +59,10 @@ const remove = async (_id) => {
   const employee = await Employee.findById(_id);
   if (!employee) throw new ResponseError(400, "Employee not found");
 
-  const publicId = employee.photo.split("/").pop().split(".")[0];
-  await cloudinary.uploader.destroy(`photo/${publicId}`);
+  if (employee.photo) {
+    const publicId = employee.photo.split("/").pop().split(".")[0];
+    await cloudinary.uploader.destroy(`photo/${publicId}`);
+  }
 
   await employee.deleteOne();
   return;
