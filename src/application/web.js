@@ -2,7 +2,6 @@ require("dotenv").config();
 require("../config/dbConnect.js");
 
 const express = require("express");
-const path = require("path");
 const cors = require("cors");
 const publicRouter = require("../routes/publicApi.js");
 const privateRouter = require("../routes/api.js");
@@ -23,7 +22,6 @@ web.use(
     allowedHeaders: ["Content-Type, Authorization, X-Requested-With"],
   })
 );
-web.use("/files", express.static(path.join(__dirname, "../../files")));
 
 web.use(publicRouter);
 web.use(privateRouter);

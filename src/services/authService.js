@@ -90,7 +90,7 @@ const update = async (user, request) => {
 
 const changePassword = async (user, request) => {
   const isMatch = await comparePassword(request.currentPassword, user.password);
-  if (!isMatch) throw new ResponseError(400, "Current Password are wrong");
+  if (!isMatch) throw new ResponseError(404, "Current Password are wrong");
 
   const newPassword = await hashPassword(request.newPassword);
   await User.updateOne({ _id: user._id }, { password: newPassword });

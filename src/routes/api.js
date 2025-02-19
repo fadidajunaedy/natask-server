@@ -37,11 +37,11 @@ privateRouter.patch("/api/tasks/:_id", taskController.update);
 privateRouter.delete("/api/tasks/:_id", taskController.remove);
 
 const subtaskController = require("../controllers/subtaskController.js");
-privateRouter.post("/api/subtasks", subtaskController.create);
-privateRouter.delete("/api/subtasks/:_id", subtaskController.remove);
 privateRouter.get("/api/subtasks/:_id", subtaskController.get);
 privateRouter.get("/api/subtasks", subtaskController.getAll);
+privateRouter.post("/api/subtasks", subtaskController.create);
 privateRouter.patch("/api/subtasks/:_id", subtaskController.update);
+privateRouter.delete("/api/subtasks/:_id", subtaskController.remove);
 
 const dashboardController = require("../controllers/dashboardController.js");
 privateRouter.get("/api/dashboards", dashboardController.get);
