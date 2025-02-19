@@ -43,7 +43,13 @@ const remove = async (_id) => {
   const subtask = await Subtask.findById(_id);
   if (!subtask) throw new ResponseError(404, "Subtask not found");
 
+  const deletedSubtask = subtask;
   await subtask.deleteOne();
+  await supabase.channel(`subtask-${_id}`).send({
+    type: "broadcast",
+    event: "subtaskDeleted",
+    payload: deletedSubtask,
+  });
   return;
 };
 
