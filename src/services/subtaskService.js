@@ -1,6 +1,7 @@
 const Task = require("../models/taskModel.js");
 const Subtask = require("../models/subtaskModel.js");
 const ResponseError = require("../error/responseError.js");
+const supabase = require("../utils/supabaseClient.js");
 
 const create = async (request) => {
   const task = await Task.findById(request.taskId);
@@ -15,6 +16,14 @@ const update = async (_id, request) => {
   if (!subtask) throw new ResponseError(404, "Subtask not found");
 
   await subtask.updateOne(request);
+  const updatedSubtask = await Subtask.findById(_id);
+
+  await supabase.channel(`subtask-${_id}`).send({
+    type: "broadcast",
+    event: "subtaskUpdated",
+    payload: updatedSubtask,
+  });
+
   return;
 };
 
