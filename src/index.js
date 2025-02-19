@@ -1,2 +1,5 @@
 const web = require("./application/web.js");
-web.listen(8000, () => console.log("Server start in port 3000"));
+
+web.listen(process.env.PORT, () =>
+  console.log(`Server running at port ${process.env.PORT}`)
+);
