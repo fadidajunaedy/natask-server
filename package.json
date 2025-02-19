@@ -2,12 +2,12 @@
   "name": "server",
   "version": "1.0.0",
   "description": "Resource Management REST API",
-  "main": "srcJ/index.js",
+  "main": "src/index.js",
   "scripts": {
-    "start": "node --no-deprecation srcJ/index.js",
-    "dev": "nodemon --exec node --no-deprecation srcJ/index.js",
-    "build": "--no-deprecation echo 'No build step required'",
-    "vercel-build": "--no-deprecation echo 'No build step required'",
+    "start": "node --no-deprecation src/index.js",
+    "dev": "nodemon --exec node --no-deprecation src/index.js",
+    "build": "echo 'No build step required'",
+    "vercel-build": "echo 'No build step required'",
     "test": "jest"
   },
   "author": "Fadida Junaedy",
