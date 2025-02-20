@@ -46,14 +46,11 @@ const get = async (_id) => {
   const task = await Task.findById(_id).lean();
   if (!task) throw new ResponseError(404, "Task not found");
 
-  const subTasks = await SubTask.find({ taskId: task._id }).lean();
-
   const employee = await Employee.findById(task.employeeId).lean();
   if (!employee) throw new ResponseError(400, "Employee not found");
 
   return {
     ...task,
-    subtasks: subTasks,
     employee: {
       _id: employee._id,
       name: employee.name,
