@@ -10,4 +10,12 @@ publicRouter.patch(
   authController.resetPassword
 );
 
+const taskController = require("../controllers/taskController.js");
+publicRouter.get("/api/public/tasks/:_id", taskController.get);
+
+const subtaskController = require("../controllers/subtaskController.js");
+publicRouter.get("/api/public/subtasks/:_id", subtaskController.get);
+publicRouter.get("/api/public/subtasks", subtaskController.getAll);
+publicRouter.patch("/api/public/subtasks/:_id", subtaskController.update);
+
 module.exports = publicRouter;
