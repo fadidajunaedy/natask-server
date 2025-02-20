@@ -8,6 +8,12 @@ const create = async (request) => {
   if (!task) throw new ResponseError(404, "Task not found");
 
   const newSubtask = await Subtask.create(request);
+  await supabase.channel(`task-${task._id}`).send({
+    type: "broadcast",
+    event: "subtaskCreated",
+    payload: newSubtask,
+  });
+
   return newSubtask;
 };
 
